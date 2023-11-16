@@ -1,0 +1,7 @@
+# Arquivo .gitignore
+
+# Ignorar o diretório de cache Python
+__pycache__
+
+# Ignorar o diretório do ambiente virtual
+venv/

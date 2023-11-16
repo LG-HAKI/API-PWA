@@ -1,5 +1,6 @@
 from utils.db_util import db
 from sqlalchemy.exc import IntegrityError
+from datetime import date
 
 
 class User(db.Model):
@@ -9,16 +10,14 @@ class User(db.Model):
     password = db.Column(db.String(60), nullable=False)
     user_type = db.Column(db.String(20), nullable=False)
     active = db.Column(db.Boolean, default=True)
-    start_dt = db.Column(db.Date, nullable=True)
+    start_dt = db.Column(db.Date, default=date.today())
     expertise = db.Column(db.String(40), nullable=True)
 
-    def __init__(self, name, email, password, user_type, active = True, start_dt=None, expertise=None):
+    def __init__(self, name, email, password, user_type, expertise=None):
         self.name = name
         self.email = email
         self.password = password
         self.user_type = user_type
-        self.active = active
-        self.start_dt = start_dt
         self.expertise = expertise
 
 
@@ -50,8 +49,9 @@ class User(db.Model):
         try:
             self.save_to_db()
         except Exception as e:
+            db.session.rollback()
             raise Exception(str(e))
-
+    
     def save_to_db(self):
         try:
             db.session.add(self)
@@ -65,6 +65,7 @@ class User(db.Model):
         try:
             db.session.commit()
         except Exception as e:
+            db.session.rollback()
             raise Exception(str(e))
 
 

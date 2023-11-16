@@ -2,6 +2,10 @@ from flask import Flask
 from flask_jwt_extended import JWTManager
 from controllers.user_controller import user_routes
 from controllers.admin_controller import admin_routes
+from controllers.category_controller import category_routes
+from controllers.item_controller import item_routes
+from controllers.transaction_controller import transaction_routes
+
 from utils.db_util import db
 from utils.marsh_util import marsh
 from datetime import timedelta
@@ -17,6 +21,9 @@ jwt = JWTManager()
 
 user_routes(app)
 admin_routes(app)
+item_routes(app)
+category_routes(app)
+transaction_routes(app)
 
 
 if __name__ == "__main__":

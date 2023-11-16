@@ -4,13 +4,11 @@ from schemas.user import UserSchema
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from utils.bcrypt_util import generate_password_hash, check_password
 from utils.validation_util import validate_email
-from datetime import date
 
 user_schema = UserSchema()
 
 def user_routes(app: Flask):
 
-    
     @app.route('/users/signup', methods=['POST'])
     def user_signup():
         try:
